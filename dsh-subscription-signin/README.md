@@ -264,6 +264,8 @@ being true, CI fails, which is the signal we want.
   this plugin — it implements no OAuth. A plugin-side workaround may still be
   possible, so do open an issue.
 - This project follows the [Contributor Covenant](CODE_OF_CONDUCT.md).
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for the house rules — no new
+  dependencies, never read a secret, keep the trust gate.
 
 ## License
 
