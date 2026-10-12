@@ -1,5 +1,7 @@
 # dsh-subscription-signin
 
+[![tests](https://github.com/amosogra/dsh-subscription-signin/actions/workflows/tests.yml/badge.svg)](https://github.com/amosogra/dsh-subscription-signin/actions/workflows/tests.yml)
+
 **The sign-in button the DeepSeek Harness never shipped.**
 
 Use the AI subscriptions you already pay for — ChatGPT Plus/Pro, Claude Pro/Max,
@@ -153,7 +155,10 @@ traffic. You are choosing to do that with your own account. Do not use this to
 resell access, and do not use it to reach credentials that are not yours.
 
 **No credentials are in this repository.** If you ever find one here, that is a
-bug — please open an issue.
+bug — please open an issue. The repository was scanned for tokens, private keys,
+home paths and email addresses before its first commit. `docs/FINDINGS.md` does
+cite exact package versions and source symbols from the Harness, which is
+deliberate: a claim about a specific build is only useful if it names the build.
 
 ## Configuration
 
@@ -237,6 +242,13 @@ slot *silently* — this is the only cheap way to see that failure. `bundles`
 exists because a missing client bundle is equally silent, and the two look
 identical from the user's side. Every suite imports the package's real modules
 directly, so no suite can pass against a stale copy.
+
+CI runs all five on Node 20 and 22 for every push and pull request, plus a check
+that the manifest still declares a web client half whose export resolves to a
+real file — the failure mode described in `docs/FINDINGS.md`. Note what the
+workflow does *not* do: **no `npm install`.** The package has zero dependencies
+and the tests import nothing outside the standard library. If that ever stops
+being true, CI fails, which is the signal we want.
 
 ## License
 

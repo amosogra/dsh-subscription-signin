@@ -1,0 +1,87 @@
+name: tests
+
+# These suites are unusual in a useful way: they need no Harness, no credentials,
+# no network and no install. They drive both halves of the plugin against stubbed
+# services, so CI can verify the plugin's core claims on every push for free.
+#
+# That is the point. The README tells a reader to audit the two source files
+# themselves; a green run here is the cheap evidence that the same code paths
+# still hold, on a machine that is not the author's.
+
+"on":
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Read-only: nothing here writes to the repository or needs a secret.
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The floor follows the Harness release this was verified against
+        # (0.2.0-rc.2); the ceiling is "current" so a future Node is caught here
+        # rather than by a user.
+        node-version: ['20', '22']
+    name: node ${{ matrix.node-version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # No `npm install` on purpose: this package has zero dependencies and the
+      # tests import nothing outside the standard library. If that ever stops
+      # being true, this workflow fails, which is the signal we want.
+      - name: render — every UI branch, in Node
+        run: node smoketest/render.mjs
+
+      - name: accounts — the shipped account list
+        run: node smoketest/accounts.mjs
+
+      - name: run — the tool and shared-service paths
+        run: node smoketest/run.mjs
+
+      - name: http — the route, including its trust gate
+        run: node smoketest/http.mjs
+
+      - name: bundles — is the client half in the boot graph?
+        run: node smoketest/bundles.mjs
+
+      # The package must stay loadable as a DSH bundle: the manifest has to keep
+      # declaring the web client half and pointing its export at a real file.
+      # A silent loss of either is the failure mode documented in docs/FINDINGS.md.
+      - name: package — dsh.client and the client export still resolve
+        run: |
+          node --input-type=module -e '
+            import { readFileSync, existsSync } from "node:fs"
+            import { join, dirname } from "node:path"
+            const base = "dsh-subscription-signin"
+            const pkg = JSON.parse(readFileSync(join(base, "package.json"), "utf8"))
+
+            const fail = (m) => { console.error("FAIL: " + m); process.exit(1) }
+            const ok = (m) => console.log("ok: " + m)
+
+            if (pkg.dsh?.client?.platform !== "web") fail("dsh.client.platform must be \"web\"")
+            ok("manifest declares a web client half")
+
+            const rel = pkg.exports?.["./client"]
+            if (typeof rel !== "string") fail("exports[\"./client\"] must be a string")
+            const clientPath = join(base, rel)
+            if (!existsSync(clientPath)) fail("client export does not resolve: " + clientPath)
+            ok("client export resolves to " + rel)
+
+            const host = pkg.exports?.["."]
+            if (typeof host !== "string" || !existsSync(join(base, host))) fail("host export does not resolve")
+            ok("host export resolves to " + host)
+
+            const src = readFileSync(clientPath, "utf8")
+            if (!src.includes("__ModuleLoader__.load")) fail("client bundle does not use the boot-graph entry form")
+            ok("client bundle uses the shipped-bundle entry form")
+          '
