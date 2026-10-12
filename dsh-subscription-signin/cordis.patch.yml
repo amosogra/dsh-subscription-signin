@@ -1,0 +1,45 @@
+# Inserting a NEW row requires the `insert:` list form. A bare `- id: ...` targets
+# an existing row as an override, and silently does nothing when no such row
+# exists — which is exactly how this plugin went missing once.
+#
+# The account list is configuration, not code: each entry names a credential key
+# the authorization seam already has a flow for. Adding a provider is a row here.
+- insert:
+    - id: subscription-signin
+      name: 'dsh-subscription-signin'
+      config:
+        accounts:
+          - key: llm-pi-ai/openai-codex
+            label: ChatGPT (Codex)
+            loginMethod: device_code
+          - key: llm-pi-ai/anthropic
+            label: Claude (Pro/Max)
+            loginMethod: oauth
+          - key: llm-pi-ai/github-copilot
+            label: GitHub Copilot
+            loginMethod: device_code
+          - key: llm-pi-ai/xai
+            label: xAI
+            loginMethod: device_code
+          - key: llm-pi-ai/meta
+            label: Meta
+            loginMethod: device_code
+          # Kimi Code IS OAuth — an RFC 8628 device grant, documented in Moonshot's
+          # own KLIP-14 — but its login page is regional. The default
+          # auth.kimi.com is the mainland service (phone or WeChat) which points
+          # international users at .ai. The host is env-selectable, so it is named
+          # per account instead of left to the Harness process. The .ai endpoint is
+          # reported, not verified upstream: treat this row as an experiment.
+          - key: llm-pi-ai/kimi-coding
+            label: Kimi For Coding
+            loginMethod: device_code
+            env:
+              KIMI_CODE_OAUTH_HOST: https://auth.kimi.ai
+          - key: llm-pi-ai/openrouter
+            label: OpenRouter
+            loginMethod: oauth
+          - key: llm-pi-ai/radius
+            label: Radius
+            loginMethod: browser
+        timeoutSeconds: 900
+        allowSignOut: true

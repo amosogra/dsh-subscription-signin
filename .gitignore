@@ -1,0 +1,43 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Package manager artefacts
+*.tgz
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Local environment — never commit secrets
+.env
+.env.*
+!.env.example
+
+# Local notes / scratch
+scratch/
+*.local.md
+
+# ---------------------------------------------------------------------------
+# Internal-only material. This repository is public, so anything that is not
+# part of the distributed package, its tests, or its documentation stays out.
+# ---------------------------------------------------------------------------
+
+# Research scratch: extracted first-party bundles and vendor payloads kept for
+# reference. Third-party code, machine-specific paths, large.
+/_investigation/
+
+# Security audit of two third-party packages: unpacked tarballs and registry
+# metadata belonging to other authors.
+/audit/
+
+# Working notes written for a maintainer, not for a reader: local machine
+# paths, credential-record shapes, unresolved threads.
+/docs/INTERNAL-NOTES.md

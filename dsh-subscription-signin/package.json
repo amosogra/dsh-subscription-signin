@@ -1,0 +1,53 @@
+{
+  "name": "dsh-subscription-signin",
+  "version": "0.3.0",
+  "description": "Sign in to ChatGPT, Claude, Copilot and other subscription model routes from inside the DeepSeek Harness \u2014 the sign-in button the Harness never shipped.",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "subscription",
+    "oauth",
+    "device-code",
+    "chatgpt",
+    "codex",
+    "claude",
+    "copilot",
+    "llm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amosogra/dsh-subscription-signin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/amosogra/dsh-subscription-signin/issues"
+  },
+  "homepage": "https://github.com/amosogra/dsh-subscription-signin#readme",
+  "exports": {
+    ".": "./host.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "host.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": []
+    }
+  }
+}

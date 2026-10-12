@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Subscription Sign-in",
+    "description": "Sign in to subscription model routes (ChatGPT, Claude and others) using the authorization flows the Harness already registers. Implements no OAuth and stores no tokens itself."
+  }
+}
