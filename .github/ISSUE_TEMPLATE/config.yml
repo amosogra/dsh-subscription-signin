@@ -1,0 +1,10 @@
+# Blank issues stay enabled: a question that fits neither template should not be
+# blocked. The contact links below route the two cases that have a better home.
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/amosogra/dsh-subscription-signin/security/advisories/new
+    about: Report privately. Please do not open a public issue for a security problem.
+  - name: A missing or broken sign-in flow
+    url: https://github.com/deepseek-ai/deepseek-harness/issues
+    about: The OAuth flows come from the Harness, not this plugin. Check upstream first.

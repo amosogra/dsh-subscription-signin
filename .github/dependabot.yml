@@ -1,0 +1,15 @@
+version: 2
+updates:
+  # The workflow pins its actions to commit SHAs, which is the safe form but
+  # would silently rot without something to move them. Dependabot understands
+  # `uses: owner/repo@<sha> # vX.Y.Z` and raises a PR that updates both the SHA
+  # and the trailing comment.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
+    labels:
+      - dependencies

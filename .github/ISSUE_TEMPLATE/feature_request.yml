@@ -1,0 +1,49 @@
+name: Feature request
+description: Suggest a provider, an option, or a change in behaviour
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing, note two constraints that decide most requests:
+
+        - **This plugin implements no OAuth.** The flows come from
+          `@earendil-works/pi-ai`, shipped by the Harness. If a provider's flow
+          is wrong or missing, that is an upstream fix, not something this repo
+          can patch — but a plugin-side workaround may still be possible.
+        - **A new provider needs a credential key the Harness already registers
+          a flow for.** Otherwise the panel reports *No sign-in flow registered*.
+          You can check with the `status` action.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the problem, not just the solution — it may have an easier answer.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Anything you have already tried or considered
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: This is not a request to bypass a vendor's terms of service
+          required: true
+        - label: I have not included any credential, token, or device code
+          required: true

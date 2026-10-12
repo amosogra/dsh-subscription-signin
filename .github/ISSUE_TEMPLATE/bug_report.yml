@@ -1,0 +1,115 @@
+name: Bug report
+description: Something is broken — a page is missing, a sign-in fails, a route errors
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this.
+
+        **Do not paste credentials.** No tokens, device codes, API keys, or the
+        contents of your `$DSH_HOME/.credentials.yaml`. Redact anything sensitive
+        before submitting. For a security problem, do not use this form — see
+        [SECURITY.md](https://github.com/amosogra/dsh-subscription-signin/blob/main/SECURITY.md).
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you expected, and what actually happened.
+      placeholder: |
+        I opened Settings → Subscriptions and expected the account list.
+        Instead the section is missing entirely.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where is the problem?
+      description: |
+        This matters more than it looks. A **missing** page and a **throwing**
+        page produce the same blank result but have completely different causes —
+        see `docs/FINDINGS.md`. If the page renders at all, it is not the
+        missing-client-bundle case.
+      options:
+        - The Subscriptions settings page is missing from Settings
+        - The Subscriptions page renders but a sign-in fails
+        - The provider card on Settings → Models is missing or wrong
+        - A model fails when I select it
+        - Something else / not sure
+    validations:
+      required: true
+
+  - type: input
+    id: dsh-version
+    attributes:
+      label: DeepSeek Harness version
+      description: Shown in the app, or the version of the profile you installed into.
+      placeholder: "0.2.0-rc.2"
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      description: From this repo's `package.json`.
+      placeholder: "0.3.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Which provider?
+      options:
+        - ChatGPT (Codex)
+        - Claude (Pro/Max)
+        - GitHub Copilot
+        - xAI
+        - Meta
+        - OpenRouter
+        - Radius
+        - Kimi For Coding
+        - Not provider-specific
+    validations:
+      required: false
+
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: |
+        Please include the output of the plugin's `diagnostics` action (or a
+        screenshot of the panel). `bundleInGraph`, `clientPath` and
+        `composedPackages` are the fields that matter and they contain no
+        secrets.
+      render: json
+    validations:
+      required: false
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Install the plugin into a profile
+        2. Restart DSH
+        3. Open Settings → Subscriptions
+        4. ...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have restarted DSH since installing or updating the plugin
+          required: false
+        - label: I have not included any credential, token, or device code
+          required: true
+        - label: I searched existing issues for the same problem
+          required: true

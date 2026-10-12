@@ -32,9 +32,13 @@ jobs:
         node-version: ['20', '22', '24']
     name: node ${{ matrix.node-version }}
     steps:
-      - uses: actions/checkout@v7
+      # Pinned to a commit SHA, with the release in a trailing comment so a human
+      # can still read it. A major tag is mutable: whoever controls it could
+      # repoint it at new code, which would then run in this job. Pinning removes
+      # that, and `.github/dependabot.yml` keeps the pins current.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ matrix.node-version }}
 

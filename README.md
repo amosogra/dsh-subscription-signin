@@ -250,6 +250,21 @@ workflow does *not* do: **no `npm install`.** The package has zero dependencies
 and the tests import nothing outside the standard library. If that ever stops
 being true, CI fails, which is the signal we want.
 
+## Contributing
+
+- **Found a security problem?** Please report it privately — see
+  [SECURITY.md](SECURITY.md). That file also states what *is* in scope, which
+  matters here: the unofficial-backend caveat below is a deliberate documented
+  trade-off, not a vulnerability.
+- **A page is missing, or a sign-in fails?** Open a bug report. Please include
+  the `diagnostics` output (it contains no secrets) and which of the two silent
+  failure modes you are seeing — a *missing* page and a *throwing* page look
+  identical but have different causes.
+- **A provider's flow is wrong or absent?** That is upstream in the Harness, not
+  this plugin — it implements no OAuth. A plugin-side workaround may still be
+  possible, so do open an issue.
+- This project follows the [Contributor Covenant](CODE_OF_CONDUCT.md).
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
