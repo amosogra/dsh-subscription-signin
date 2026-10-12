@@ -24,10 +24,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # The floor follows the Harness release this was verified against
-        # (0.2.0-rc.2); the ceiling is "current" so a future Node is caught here
-        # rather than by a user.
-        node-version: ['20', '22']
+        # The Harness declares no `engines` field, so there is no authoritative
+        # Node floor to copy. Rather than guess one, the suite IS the check: these
+        # versions are covered, and a failure on the oldest is the signal to raise
+        # the stated minimum. The newest entry is deliberately ahead of the
+        # others, so a future Node is caught here instead of by a user.
+        node-version: ['20', '22', '24']
     name: node ${{ matrix.node-version }}
     steps:
       - uses: actions/checkout@v7

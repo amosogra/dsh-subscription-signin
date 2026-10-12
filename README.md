@@ -243,9 +243,9 @@ exists because a missing client bundle is equally silent, and the two look
 identical from the user's side. Every suite imports the package's real modules
 directly, so no suite can pass against a stale copy.
 
-CI runs all five on Node 20 and 22 for every push and pull request, plus a check
-that the manifest still declares a web client half whose export resolves to a
-real file — the failure mode described in `docs/FINDINGS.md`. Note what the
+CI runs all five on Node 20, 22 and 24 for every push and pull request, plus a
+check that the manifest still declares a web client half whose export resolves to
+a real file — the failure mode described in `docs/FINDINGS.md`. Note what the
 workflow does *not* do: **no `npm install`.** The package has zero dependencies
 and the tests import nothing outside the standard library. If that ever stops
 being true, CI fails, which is the signal we want.
