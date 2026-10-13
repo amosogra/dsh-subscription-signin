@@ -160,6 +160,12 @@ home paths and email addresses before its first commit. `docs/FINDINGS.md` does
 cite exact package versions and source symbols from the Harness, which is
 deliberate: a claim about a specific build is only useful if it names the build.
 
+**Found a vulnerability?** Report it privately via
+[SECURITY.md](SECURITY.md) rather than a public issue. That file also lists what
+is and is not in scope — worth reading first, because the unofficial-backend
+caveat above is a documented trade-off rather than a defect, and the two are easy
+to confuse.
+
 ## Configuration
 
 Accounts are configured, not hardcoded. They live in this package's own
