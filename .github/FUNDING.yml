@@ -1,0 +1,15 @@
+# These are supported funding model platforms
+#
+# `github:` renders the native Sponsor button, but ONLY once the Sponsors
+# listing is enrolled — an unenrolled account has no listing to link to, and
+# GitHub then renders nothing at all.
+#
+# The `custom:` entry below is the same Sponsors URL, and it works immediately
+# because a custom link needs no listing. It is therefore what makes the button
+# appear today.
+#
+# Remove the `custom:` line once github.com/sponsors/amosogra resolves to a real
+# Sponsors profile (it currently redirects to the plain profile) — at that point
+# `github:` alone is the cleaner, native form.
+github: amosogra
+custom: ["https://github.com/sponsors/amosogra"]

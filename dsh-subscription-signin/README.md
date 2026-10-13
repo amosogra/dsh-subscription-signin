@@ -273,6 +273,24 @@ being true, CI fails, which is the signal we want.
 - See [CONTRIBUTING.md](CONTRIBUTING.md) for the house rules — no new
   dependencies, never read a secret, keep the trust gate.
 
+## Support
+
+This plugin is free and stays MIT. There is no paid tier, no gated feature, and
+nothing here is withheld behind a sponsorship — sponsorship funds maintenance,
+not access.
+
+If it is useful to you and you would like to say so financially,
+[GitHub Sponsors](https://github.com/sponsors/amosogra) is the way. It is
+entirely optional, and it does not buy priority or influence over the roadmap.
+
+**Non-financial support is genuinely as useful**, and often more so:
+
+- a bug report with the `diagnostics` output attached;
+- confirming that a route works, or does not, on a provider you pay for — the
+  six unverified routes in the status table above are the biggest gap in this
+  project, and one report closes part of it;
+- telling someone the plugin exists.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
